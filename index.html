@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>אתגר הכנס: סוכרת במציאות משתנה</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind to use Inter font and apply gold/black theme -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-gold': '#D4AF37', // Updated to a Richer Gold color
+                        'dark-bg': '#0A0A0A',     // Deep Black
+                        'light-text': '#F5F5F5',  // Off-White/Silver
+                        'accent-dark': '#1A1A1A', // Slightly lighter black for cards
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        // Updated glow and inner shadows to match the richer gold
+                        'gold-glow': '0 0 15px rgba(212, 175, 55, 0.7)',
+                        'inner-gold': 'inset 0 2px 4px rgba(212, 175, 55, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for background and gold accent */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A0A0A; /* Deep Black Background */
+            color: #F5F5F5; /* Light Text */
+            direction: rtl; /* Right-to-Left for Hebrew */
+            position: relative; /* Important for placing the effect layer */
+            overflow-x: hidden; /* Prevent horizontal scroll from fixed elements */
+        }
+        
+        /* === INNOVATION EFFECT: Subtle Dot Grid (Data/Tech Feel) === */
+        /* Set body background to just the dot grid */
+        body {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        /* === NEW INNOVATION EFFECT: Animated Deep Glow (Flowing Energy) === */
+        /* Keyframes for a slow, subtle shift of the central light source */
+        @keyframes deepShift {
+            0% { transform: translate(0%, 0%); }
+            33% { transform: translate(5%, 5%); }
+            66% { transform: translate(-5%, -5%); }
+            100% { transform: translate(0%, 0%); }
+        }
+
+        /* Pseudo-element to hold the animated radial glow */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; 
+            z-index: -10; /* Ensure it stays in the back */
+            opacity: 1;
+            
+            /* Define the radial gradient glow */
+            background: radial-gradient(circle 800px at 50% 50%, 
+                                        rgba(212, 175, 55, 0.08) 0%, /* Gold glow source */
+                                        rgba(10, 10, 10, 1) 75%, 
+                                        rgba(10, 10, 10, 1) 100%);
+            
+            /* Apply the new subtle animation for the flowing effect */
+            animation: deepShift 40s ease-in-out infinite alternate;
+        }
+        
+        /* Custom class for the gold gradient button effect - enhanced for metallic look */
+        .gold-button {
+            /* Using multiple colors for a metallic sheen effect */
+            background: linear-gradient(145deg, #FFD700, #D4AF37, #B8860B);
+            color: #0A0A0A;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.5); 
+        }
+        .gold-button:hover {
+            /* Slightly brighter hover effect */
+            background: linear-gradient(145deg, #FFE866, #FFD700);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.8);
+        }
+        
+        /* --- SHADERS FOR INNOVATION --- */
+
+        /* 1. Challenge Card Hover: Simple, strong glow */
+        .challenge-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .challenge-card:hover {
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.9); /* Stronger hover glow */
+        }
+
+        /* 2. Subtle Text Glow for Card Titles (Digital look) */
+        .challenge-card h2 {
+            text-shadow: 0 0 5px rgba(212, 175, 55, 0.4);
+        }
+        
+        /* Apply border and initial shadow to header (without pulsing animation) */
+        header {
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); 
+        }
+    </style>
+</head>
+<body class="min-h-screen antialiased">
+
+    <!-- Main Container -->
+    <div id="app" class="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
+        
+        <!-- Global Message Bar for warnings/info -->
+        <div id="globalMessage" class="fixed top-4 left-1/2 -translate-x-1/2 p-4 rounded-lg z-50 text-center text-sm font-bold shadow-xl transition-all duration-300 opacity-0 pointer-events-none" style="min-width: 300px;"></div>
+
+        <!-- Conference Header & Logo Placeholder -->
+        <header class="bg-accent-dark border-b border-primary-gold/50 rounded-xl p-6 mb-12">
+            <div class="flex flex-col items-center text-center">
+                <!-- LOGOJ.jpeg - תמונה של לוגו הכנס. הקובץ מוגדר לנתיב מקומי LOGOJ.jpeg. יש לוודא שהקובץ נמצא באותה תיקייה. -->
+                <div class="w-full max-w-sm mx-auto mb-6">
+                    <img 
+                        src="LOGOJ.jpeg" 
+                        alt="לוגו הכנס - סוכרת במציאות משתנה" 
+                        class="w-full h-auto rounded-lg border-2 border-primary-gold shadow-gold-glow"
+                    >
+                </div>
+                
+                <!-- Welcome Message (UPDATED) -->
+                <h1 class="text-2xl sm:text-4xl font-bold text-light-text mb-2 tracking-wide">
+                    ברוכים הבאים לאתגר של כנס הסוכרת
+                </h1>
+
+                <!-- New Descriptive Text -->
+                <p class="text-light-text/80 text-base sm:text-lg mb-4 max-w-2xl">
+                    לפניכם קישורים לאתגרים השונים, טופס למילוי תוצאות האתגרים ומשוב לכנס
+                </p>
+                
+                <!-- Signature Block (UPDATED) -->
+                <p class="text-primary-gold text-xl font-medium mb-2">
+                    בהצלחה
+                </p>
+                <div class="text-light-text text-sm sm:text-base font-light space-y-1">
+                    <!-- Highlighting Names -->
+                    <p>
+                        <span class="font-bold text-primary-gold">תהילה הראל</span> | אחות מומחית קלינית בסוכרת ומרכזת תחום סוכרת המרכז הרפואי הדסה
+                    </p>
+                    <p>
+                        <span class="font-bold text-primary-gold">תפארת אליאב</span> | אחות מומחית קלינית בסוכרת ומובילת חדשנות בעבודת האחות, כללית מחוז ירושלים
+                    </p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Grid for Challenges -->
+        <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+
+            <!-- CHALLENGE 1: אבחון סוג הסוכרת (DIRECT LINK) -->
+            <div class="challenge-card">
+                <h2 class="text-xl font-semibold mb-3 text-primary-gold">אתגר ראשון</h2>
+                <p class="text-light-text/80 mb-6">אבחון סוג הסוכרת</p>
+                <button onclick="openDirectLink('challenge1')" class="gold-button w-full py-3 rounded-lg text-sm font-bold uppercase transition">
+                    לכניסה לאתגר
+                </button>
+            </div>
+
+            <!-- CHALLENGE 2: מאסטר באינסולין (DIRECT LINK) -->
+            <div class="challenge-card">
+                <h2 class="text-xl font-semibold mb-3 text-primary-gold">אתגר שני</h2>
+                <p class="text-light-text/80 mb-6">מאסטר באינסולין</p>
+                <button onclick="openDirectLink('challenge2')" class="gold-button w-full py-3 rounded-lg text-sm font-bold uppercase transition">
+                    לכניסה לאתגר
+                </button>
+            </div>
+
+            <!-- CHALLENGE 3: טיפול ב SGLT2 (DIRECT LINK) -->
+            <div class="challenge-card">
+                <h2 class="text-xl font-semibold mb-3 text-primary-gold">אתגר שלישי</h2>
+                <p class="text-light-text/80 mb-6">טיפול ב-SGLT2</p>
+                <button onclick="openDirectLink('challenge3')" class="gold-button w-full py-3 rounded-lg text-sm font-bold uppercase transition">
+                    לכניסה לאתגר
+                </button>
+            </div>
+
+            <!-- CHALLENGE 4: טיפול ב GLP1 (DIRECT LINK) -->
+            <div class="challenge-card">
+                <h2 class="text-xl font-semibold mb-3 text-primary-gold">אתגר רביעי</h2>
+                <p class="text-light-text/80 mb-6">טיפול ב-GLP1</p>
+                <button onclick="openDirectLink('challenge4')" class="gold-button w-full py-3 rounded-lg text-sm font-bold uppercase transition">
+                    לכניסה לאתגר
+                </button>
+            </div>
+            
+            <!-- CODE SUBMISSION SECTION (RAFFLE / FORM LINK) -->
+            <div class="lg:col-span-2 challenge-card bg-accent-dark border-2 border-primary-gold/70">
+                <h2 class="text-2xl font-bold mb-4 text-light-text">הכנסת הקודים להשתתפות בהגרלה</h2>
+                <p class="text-light-text/70 mb-6">אספו את הקודים מכל האתגרים ועברו לטופס להזנה והשתתפות בהגרלה הגדולה של הכנס!</p>
+                
+                <!-- Input field and local message removed per user request -->
+                <button onclick="openDirectLink('raffleForm')" class="gold-button w-full py-3 rounded-lg text-sm font-bold uppercase transition">
+                    מעבר לטופס הקודים וההגרלה
+                </button>
+            </div>
+
+            <!-- FEEDBACK SECTION (DIRECT LINK) -->
+            <div class="challenge-card">
+                <h2 class="text-xl font-semibold mb-3 text-primary-gold">משוב לכנס</h2>
+                <p class="text-light-text/80 mb-6">דעתכם חשובה לנו! אנא מלאו משוב קצר על הכנס.</p>
+                <button onclick="openDirectLink('feedback')" class="gold-button w-full py-3 rounded-lg text-sm font-bold uppercase transition">
+                    למעבר למשוב
+                </button>
+            </div>
+
+        </main>
+        
+        <!-- Footer (Optional) -->
+        <footer class="mt-12 pt-6 border-t border-primary-gold/30 text-center text-light-text/50">
+            &copy; 2025 כנס סוכרת במציאות משתנה. כל הזכויות שמורות.
+        </footer>
+
+    </div>
+
+    <!-- JavaScript for Interactions -->
+    <script>
+        // Define your actual links here. Key names changed to challenge1-4, raffleForm and feedback.
+        const links = {
+            'challenge1': 'https://diagnosis2-nine.vercel.app', // אתגר ראשון - קישור מעודכן
+            'challenge2': 'https://ins-5.vercel.app', // אתגר שני - קישור מעודכן (האתגר הראשי)
+            'challenge3': 'https://sglt-2.vercel.app', // אתגר שלישי - קישור מעודכן (האתגר הראשי)
+            'challenge4': 'https://glp-12.vercel.app', // אתגר רביעי - קישור מעודכן (האתגר הראשי)
+            'raffleForm': 'https://forms.office.com/r/CZ11NK66w6', // טופס הגרלה - קישור מעודכן
+            'feedback': 'https://forms.office.com/r/zy0ViF02N4' // משוב - קישור מעודכן
+        };
+        
+        /**
+         * Helper function to display temporary messages using a global element.
+         * @param {string} msg - The message to display.
+         * @param {string} colorClass - Tailwind color class for the message (e.g., 'bg-red-800 text-white').
+         */
+        function displayMessage(msg, colorClass) {
+            const messageElement = document.getElementById('globalMessage');
+            messageElement.textContent = msg;
+            messageElement.className = `fixed top-4 left-1/2 -translate-x-1/2 p-4 rounded-lg z-50 text-center text-sm font-bold shadow-xl transition-all duration-300 opacity-100 ${colorClass}`;
+            messageElement.style.pointerEvents = 'auto'; // Re-enable pointer events
+
+            setTimeout(() => {
+                messageElement.className = messageElement.className.replace('opacity-100', 'opacity-0');
+                messageElement.style.pointerEvents = 'none'; // Disable pointer events when hidden
+                messageElement.textContent = '';
+            }, 5000);
+        }
+
+        // --- ADAPTED FUNCTION: Open direct links ---
+        /**
+         * Function to open a link directly in a new tab.
+         * @param {string} key - The key corresponding to the link in the 'links' object.
+         */
+        function openDirectLink(key) {
+            const url = links[key];
+            const isPlaceholder = url && url.includes('placeholder_url_');
+            
+            if (url && !isPlaceholder) {
+                window.open(url, '_blank'); // Opens in a new tab
+                
+                // Optional: Show a temporary success message for forms
+                if (key === 'raffleForm') {
+                    displayMessage('פותח טופס הגרלה... בהצלחה!', 'bg-primary-gold text-dark-bg');
+                } else if (key === 'feedback') {
+                    displayMessage('פותח טופס משוב... תודה על שיתוף הפעולה!', 'bg-primary-gold text-dark-bg');
+                } 
+                // Removed video confirmation for simplified layout
+            } else {
+                // Determine the name for the message
+                let itemName;
+                if (key.startsWith('challenge') && key.length === 10) {
+                    itemName = `אתגר ${key.slice(-1)}`;
+                } else if (key === 'feedback') {
+                    itemName = 'המשוב';
+                }
+                
+                displayMessage(`טרם הוגדר קישור עבור ${itemName || 'פריט זה'}.`, 'bg-red-800 text-white');
+                console.error(`Link for ${key} is a placeholder or undefined.`);
+            }
+        }
+
+        // Apply dynamic card styling
+        document.querySelectorAll('.challenge-card').forEach(card => {
+            card.className = 'p-6 bg-accent-dark rounded-xl shadow-lg transition duration-300 border border-primary-gold/20 flex flex-col justify-between challenge-card';
+        });
+
+    </script>
+
+</body>
+</html>
